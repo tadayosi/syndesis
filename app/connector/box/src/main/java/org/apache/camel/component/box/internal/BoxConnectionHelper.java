@@ -44,6 +44,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.nodes.FormElement;
 import org.jsoup.select.Elements;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * BoxConnectionHelper
@@ -52,6 +54,8 @@ import org.jsoup.select.Elements;
  * Utility class for creating Box API Connections
  */
 public final class BoxConnectionHelper {
+
+    private static final Logger LOG = LoggerFactory.getLogger(BoxConnectionHelper.class);
 
     private static final Pattern QUERY_PARAM_PATTERN = Pattern.compile("&?([^=]+)=([^&]+)");
 
@@ -78,6 +82,13 @@ public final class BoxConnectionHelper {
     }
 
     public static BoxAPIConnection createStandardAuthenticatedConnection(BoxConfiguration configuration) {
+        LOG.info("==================================================================================");
+        LOG.info("box config       = {}", configuration);
+        LOG.info("box userName     = {}", configuration.getUserName());
+        LOG.info("box userPassword = {}", configuration.getUserPassword());
+        LOG.info("box clientId     = {}", configuration.getClientId());
+        LOG.info("box clientSecret = {}", configuration.getClientSecret());
+        LOG.info("==================================================================================");
 
         // authorize application on user's behalf
         try {
